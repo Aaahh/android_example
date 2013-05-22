@@ -7,13 +7,14 @@ import java.net.MalformedURLException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.view.View;
 import android.widget.ImageView;
 
 public class DownloadImagesTask extends AsyncTask<String, Void, Bitmap> {
-	private ImageView bmImage;
+	private View dialogView;
 	
-	public DownloadImagesTask(ImageView bmImage) {
-        this.bmImage = bmImage;
+	public DownloadImagesTask(View dialogView) {
+        this.dialogView = dialogView;
     }
 
 	@Override
@@ -33,6 +34,8 @@ public class DownloadImagesTask extends AsyncTask<String, Void, Bitmap> {
 	}
 	
     protected void onPostExecute(Bitmap bitmap) {
-    	bmImage.setImageBitmap(bitmap);
+    	ImageView image = (ImageView)dialogView.findViewById(R.id.happy_card_image);
+    	image.setImageBitmap(bitmap);
+    	dialogView.findViewById(R.id.loadingPanel).setVisibility(View.GONE);;
     }
 }

@@ -16,5 +16,19 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    
+    <!-- Loading bar thing style -->
+	<style name="GenericProgressBackground" parent="android:Theme">
+	    <item name="android:layout_width">match_parent</item>    
+	    <item name="android:layout_height">match_parent</item>
+	    <item name="android:background">#202020</item>    
+	    <item name="android:gravity">center</item>  
+	</style>
+	<style name="GenericProgressIndicator" parent="@android:attr/progressBarStyleLarge">
+	    <item name="android:layout_width">wrap_content</item>
+	    <item name="android:layout_height">wrap_content</item>
+	    <item name="android:indeterminate">true</item> 
+	</style>
 
 </resources>

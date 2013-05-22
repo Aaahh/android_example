@@ -46,13 +46,13 @@ public class MainActivity extends Activity {
 	// Show message dialog 
 	private void showMessage(String msg) {
 		builder = new AlertDialog.Builder(this);
-		builder.setTitle("Oops!");
-		builder.setMessage(msg);
+		//builder.setTitle("Oops!");
+		//builder.setMessage(msg);
 		// set the confirm event
 		LayoutInflater inflater = this.getLayoutInflater();
 		
 		View builderView = inflater.inflate(R.layout.dialog_signin, null);
-		ImageView image = (ImageView)builderView.findViewById(R.id.happy_card_image);
+		//ImageView image = (ImageView)builderView.findViewById(R.id.happy_card_image);
 		
 		
 		builder.setView(builderView);
@@ -73,19 +73,7 @@ public class MainActivity extends Activity {
 		
 		dialog.show();
 		
-		new DownloadImagesTask(image).execute("http://i.imgur.com/DTFYZuL.jpg");
-	}
-	
-	private void fullfillImage(String imageUrl, View dialogView) throws URISyntaxException {
-		try {
-		    //ImageView i = (ImageView)dialogView.findViewById(R.id.happy_card_image);
-		    Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(imageUrl).getContent());
-		    //i.setImageBitmap(bitmap); 
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		new DownloadImagesTask(builderView).execute("http://profilethai.com/download/original/girls-generation-snsd-gee-other.jpg");
 	}
 
 }
