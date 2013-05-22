@@ -2,7 +2,9 @@ package com.example.popupview;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 
@@ -10,7 +12,7 @@ import android.view.View;
 public class MainActivity extends Activity {
 
 	
-	private AlertDialog.Builder messageDialog;
+	private AlertDialog.Builder builder;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,12 +34,26 @@ public class MainActivity extends Activity {
     
 	// Show message dialog 
 	private void showMessage(String msg) {
-		messageDialog = new AlertDialog.Builder(this);
-		messageDialog.setTitle("Oops!");
-		messageDialog.setMessage(msg);
-		messageDialog.setPositiveButton("Okay", null);
-		messageDialog.setCancelable(false);
-		messageDialog.create().show();
+		builder = new AlertDialog.Builder(this);
+		builder.setTitle("Oops!");
+		builder.setMessage(msg);
+		// set the confirm event
+		LayoutInflater inflater = this.getLayoutInflater();
+		builder.setView(inflater.inflate(R.layout.dialog_signin, null));
+		builder.setPositiveButton("Oh yeah", new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	               // User clicked OK button
+	           }
+	       });
+		// set cancel event
+		builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	               // User cancelled the dialog
+	           }
+	       });
+		
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 
 }
