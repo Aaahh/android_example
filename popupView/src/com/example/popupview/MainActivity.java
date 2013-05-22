@@ -1,18 +1,29 @@
 package com.example.popupview;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageView;
 
 
 public class MainActivity extends Activity {
 
 	
 	private AlertDialog.Builder builder;
+	private DownloadImagesTask task;
+	private Bitmap bitmap;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,7 +50,13 @@ public class MainActivity extends Activity {
 		builder.setMessage(msg);
 		// set the confirm event
 		LayoutInflater inflater = this.getLayoutInflater();
-		builder.setView(inflater.inflate(R.layout.dialog_signin, null));
+		
+		View builderView = inflater.inflate(R.layout.dialog_signin, null);
+		ImageView image = (ImageView)builderView.findViewById(R.id.happy_card_image);
+		
+		
+		builder.setView(builderView);
+		
 		builder.setPositiveButton("Oh yeah", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
 	               // User clicked OK button
@@ -50,10 +67,25 @@ public class MainActivity extends Activity {
 	           public void onClick(DialogInterface dialog, int id) {
 	               // User cancelled the dialog
 	           }
-	       });
+	    });
 		
 		AlertDialog dialog = builder.create();
+		
 		dialog.show();
+		
+		new DownloadImagesTask(image).execute("http://i.imgur.com/DTFYZuL.jpg");
+	}
+	
+	private void fullfillImage(String imageUrl, View dialogView) throws URISyntaxException {
+		try {
+		    //ImageView i = (ImageView)dialogView.findViewById(R.id.happy_card_image);
+		    Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(imageUrl).getContent());
+		    //i.setImageBitmap(bitmap); 
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
